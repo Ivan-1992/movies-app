@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { Input } from 'antd'
 import { debounce } from 'lodash'
+import PropTypes from 'prop-types'
 
 import './search-panel.css'
 
 export default class SearchPanel extends Component {
+  static propTypes = {
+    changeValue: PropTypes.func,
+  }
+
   state = {
     movieName: null,
   }

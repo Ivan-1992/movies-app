@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Tabs } from 'antd'
+import PropTypes from 'prop-types'
 
 const items = [
   {
@@ -13,6 +14,10 @@ const items = [
 ]
 
 export default class Tab extends Component {
+  static propTypes = {
+    changeTab: PropTypes.func,
+  }
+
   render() {
     return (
       <Tabs

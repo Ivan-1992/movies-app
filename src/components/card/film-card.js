@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Typography, Rate } from 'antd'
+import PropTypes from 'prop-types'
 
 import Spinner from '../spinner/spinner'
 // eslint-disable-next-line import/order
@@ -12,6 +13,21 @@ import './film-card.css'
 const { Text } = Typography
 
 export default class FilmCard extends Component {
+  static defaultProps = {
+    movieName: '',
+    selectedPage: 1,
+    genres: {},
+  }
+
+  static propTypes = {
+    movieName: PropTypes.string,
+    selectedPage: PropTypes.number,
+    genres: PropTypes.object,
+    rating: PropTypes.number,
+    rated: PropTypes.func,
+    tab: PropTypes.number,
+  }
+
   movieAPIService = new MovieAPIService()
 
   state = {
