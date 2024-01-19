@@ -24,8 +24,7 @@ export default class FilmCard extends Component {
     selectedPage: PropTypes.number,
     genres: PropTypes.object,
     rating: PropTypes.number,
-    rated: PropTypes.func,
-    tab: PropTypes.number,
+    rated: PropTypes.array,
   }
 
   movieAPIService = new MovieAPIService()
