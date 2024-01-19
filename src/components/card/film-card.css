@@ -2,8 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    width: 451px;
-    height: 279px;
+    width: 455px;
+    height: 283px;
     border-radius: 0;
     box-shadow: 15px 15px 20px -10px grey;
     margin-right: 10px;
@@ -16,32 +16,49 @@
 }
 
 .film-card_title {
+    font-size: 20px;
     width: 170px;
+    height: 23px;
+    overflow: hidden;
     margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 .film-card_image {
     width: 183px;
     height: 281px;
+    margin-right: 10px;
 }
 
 .film-card_genre {
-    width: 49px;
-    height: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    list-style-type: none;
+    width: 190px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.film-card_genre-item {
+    margin-right: 5px;
     border-color: #D9D9D9;
     color: #000000A6;
     border-radius: 5px;
     background-color: #FAFAFA;
-    padding: 0;
-    cursor: pointer;
 }
 
 .film-card_overview {
     width: 228px;
-    max-height: 126px;
+    height: 128px;
     margin-top: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 22px;
 }
 
 .movie {
@@ -51,4 +68,58 @@
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
+}
+
+.red {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #E90000;
+    border-radius: 45%;
+    font-size: 20px;
+    position: relative;
+    left: 220px;
+    bottom: 240px;
+}
+
+.orange {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #E97E00;
+    border-radius: 45%;
+    font-size: 20px;
+    position: relative;
+    left: 220px;
+    bottom: 240px;
+}
+
+.yellow {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #E9D100;
+    border-radius: 45%;
+    font-size: 20px;
+    position: relative;
+    left: 220px;
+    bottom: 240px;
+}
+
+.green {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #66E900;
+    border-radius: 45%;
+    font-size: 20px;
+    position: relative;
+    left: 220px;
+    bottom: 240px;
+}
+
+.noOverview {
+    width: 228px;
+    height: 126px;
+}
+
+.noDate {
+    width: 262px;
+    height: 22px;
 }
