@@ -1,0 +1,71 @@
+.pagination {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.movie {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+@media (min-width: 320px) and (max-width: 550px) {
+    .movie {
+        flex-wrap: wrap;
+        max-width: 388px;
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 420px) {
+    .pagination {
+        margin-left: 15%;
+    }
+}
+
+@media (min-width: 420px) and (max-width: 520px) {
+    .pagination {
+        margin-left: 20%;
+    }
+}
+
+@media (min-width: 455px) and (max-width: 590px) {
+    .pagination {
+        margin-left: 28%;
+    }
+}
+
+@media (min-width: 591px) and (max-width: 768px) {
+    .pagination {
+        margin-left: 34%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1160px) {
+    .pagination {
+        margin-left: 36%;
+    }
+}
+
+@media (min-width: 1160px) and (max-width: 1300px) {
+    .pagination {
+        margin-left: 38%;
+    }
+}
+
+@media (min-width: 1300px) {
+    .pagination {
+        margin-left: 40%;
+    }
+}
+
+@media (min-width: 551px) {
+    .movie {
+        flex-wrap: wrap;
+        max-width: 1010px;
+        margin-top: 34px;
+    }
+}

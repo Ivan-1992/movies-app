@@ -16,12 +16,9 @@ export default class SearchPanel extends Component {
 
   render() {
     return (
-      <Input
-        placeholder="Type to search..."
-        size="small"
-        style={{ width: '915px', marginLeft: '230px', marginRight: 'auto' }}
-        onChange={debounce(this.props.changeValue, 1500)}
-      />
+      <div className="input">
+        <Input placeholder="Type to search..." size="large" onChange={debounce(this.props.changeValue, 1500)} />
+      </div>
     )
   }
 }

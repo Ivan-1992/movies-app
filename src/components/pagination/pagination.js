@@ -9,18 +9,17 @@ export default class PaginationPage extends Component {
     onPageSelected: PropTypes.func,
   }
 
-  state = {
-    selectedPage: 1,
-  }
-
   render() {
     return (
-      <Pagination
-        defaultCurrent={1}
-        total={50}
-        style={{ width: '320px', marginLeft: '555px', marginTop: '20px' }}
-        onChange={this.props.onPageSelected}
-      />
+      <div className="pagination">
+        <Pagination
+          defaultCurrent={1}
+          total={this.props.pageCount * 10}
+          size="small"
+          style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '20px' }}
+          onChange={this.props.onPageSelected}
+        />
+      </div>
     )
   }
 }

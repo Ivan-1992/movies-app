@@ -22,10 +22,11 @@ export default class Tab extends Component {
     return (
       <Tabs
         defaultActiveKey="1"
+        size="large"
         items={items}
         onChange={this.props.changeTab}
         destroyInactiveTabPane={true}
-        style={{ width: '120px', marginLeft: '630px', marginRight: 'auto' }}
+        style={{ width: '130px', marginLeft: 'auto', marginRight: 'auto' }}
       />
     )
   }

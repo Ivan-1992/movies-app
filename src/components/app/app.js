@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Offline, Online } from 'react-detect-offline'
 import { Alert } from 'antd'
 
-import FilmCard from '../card'
 import SearchPanel from '../search-panel/search-panel'
-import PaginationPage from '../pagination/pagination'
 import MovieAPIService from '../../services/movie-api-service'
 import Tab from '../tabs/tabs'
-import { MovieServiceProvider } from '../movie-api-service-context'
+// eslint-disable-next-line import/order
+import { MovieServiceProvider } from '../../movie-api-service-context'
 
 import './app.css'
+import FilmList from '../film-list/film-list'
 
 export default class App extends Component {
   movieAPIService = new MovieAPIService()
@@ -18,20 +18,20 @@ export default class App extends Component {
     selectedPage: 1,
     movieName: '',
     tab: 1,
-    rated: [],
+    ratedFilms: [],
     genres: [],
+    ratedCountPages: 1,
   }
 
   componentDidMount() {
     this.createGuestSession()
     this.getGenre()
-    localStorage.clear()
     this.updateGenre()
   }
 
   createGuestSession() {
     this.movieAPIService.getGuestSession('').then((res) => {
-      localStorage.setItem(res.guest_session_id, 1)
+      sessionStorage.setItem(res.guest_session_id, 1)
     })
   }
 
@@ -51,8 +51,8 @@ export default class App extends Component {
 
   changeTab = (key) => {
     this.setState({ tab: key })
-    this.movieAPIService.rateMov().then((rated) => {
-      this.setState({ rated })
+    this.movieAPIService.rateMov().then((res) => {
+      this.setState({ ratedFilms: res[0], ratedCountPages: res[1] })
     })
   }
 
@@ -65,23 +65,27 @@ export default class App extends Component {
   }
 
   render() {
-    const { tab, genres } = this.state
+    const { tab, genres, ratedFilms, movieName, selectedPage, ratedCountPages } = this.state
     const tabChange = tab == 1 ? <SearchPanel changeValue={this.changeValue} /> : null
+
     return (
       <React.Fragment>
-        <Online>
-          <MovieServiceProvider value={{ genres: genres }}>
-            <Tab changeTab={this.changeTab} />
-            {tabChange}
-            <FilmCard
-              selectedPage={this.state.selectedPage}
-              movieName={this.state.movieName}
-              tab={this.state.tab}
-              rated={this.state.rated}
+        <MovieServiceProvider value={{ genres: genres }}>
+          <Tab changeTab={this.changeTab} />
+          {tabChange}
+          <Online>
+            <FilmList
+              selectedPage={selectedPage}
+              movieName={movieName}
+              tab={tab}
+              ratedFilms={ratedFilms}
+              genres={genres}
+              movieAPIService={this.movieAPIService}
+              onPageSelected={this.onPageSelected}
+              ratedCountPages={ratedCountPages}
             />
-            <PaginationPage onPageSelected={this.onPageSelected} />
-          </MovieServiceProvider>
-        </Online>
+          </Online>
+        </MovieServiceProvider>
         <Offline>
           <Alert message="Ошибка: нет сети" type="error" />
         </Offline>

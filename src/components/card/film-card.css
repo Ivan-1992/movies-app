@@ -10,13 +10,15 @@
     margin-top: 10px;
 }
 
-.film-card_data {
+.film-card_date {
     margin-bottom: 10px;
     color: #827E7E;
 }
 
 .film-card_title {
     font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
     width: 170px;
     height: 23px;
     overflow: hidden;
@@ -36,8 +38,8 @@
     flex-wrap: nowrap;
     overflow: hidden;
     list-style-type: none;
-    width: 190px;
-    height: 16px;
+    width: 175px;
+    height: 18px;
     padding: 0;
     margin: 0;
     margin-bottom: 0;
@@ -61,57 +63,60 @@
     line-height: 22px;
 }
 
-.movie {
-    display: flex;
-    flex-wrap: wrap;
-    width: 1010px;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-}
-
 .red {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #E90000;
-    border-radius: 45%;
-    font-size: 20px;
+    border-radius: 50%;
+    font-size: 12px;
     position: relative;
-    left: 220px;
-    bottom: 240px;
+    left: -40px;
+    bottom: 0;
+    padding: 5px;
+    padding-left: 7px;
+    padding-top: 6px;
 }
 
 .orange {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #E97E00;
-    border-radius: 45%;
-    font-size: 20px;
+    border-radius: 50%;
+    font-size: 12px;
     position: relative;
-    left: 220px;
-    bottom: 240px;
+    left: -40px;
+    bottom: 0;
+    padding: 5px;
+    padding-left: 7px;
+    padding-top: 6px;
 }
 
 .yellow {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #E9D100;
-    border-radius: 45%;
-    font-size: 20px;
+    border-radius: 50%;
+    font-size: 12px;
     position: relative;
-    left: 220px;
-    bottom: 240px;
+    left: -45px;
+    bottom: 0;
+    padding: 5px;
+    padding-left: 7px;
+    padding-top: 6px;
 }
 
 .green {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #66E900;
-    border-radius: 45%;
-    font-size: 20px;
+    border-radius: 50%;
+    font-size: 12px;
     position: relative;
-    left: 220px;
-    bottom: 240px;
+    left: -40px;
+    bottom: 0;
+    padding: 5px;
+    padding-left: 7px;
+    padding-top: 6px;
 }
 
 .noOverview {
@@ -122,4 +127,68 @@
 .noDate {
     width: 262px;
     height: 22px;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .film-card {
+        display: grid;
+        grid-template-columns: 60px auto 30px;
+        grid-template-rows: 28px 22px 15px 92px 46px;
+        gap: 5px;
+        width: 388px;
+        height: 245px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10px;
+    }
+
+    .film-card_image {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        width: 60px;
+        height: 91px;
+        margin-right: 10px;
+    }
+
+    .film-card_title {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        justify-self: start;
+        align-self: end;
+    }
+
+    .film-card_date {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+    }
+
+    .film-card_genre {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+    }
+
+    .film-card_overview {
+        grid-column: 1 / 4;
+        grid-row: 4 / 5;
+        width: auto;
+        height: 92px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 12px;
+        line-height: 22px;
+    }
+
+    .film-card_rate {
+        grid-column: 1 / 4;
+        grid-row: 5 / 6;
+        justify-self: end;
+        margin-right: 10px;
+    }
+
+    .rating {
+        grid-column-start: 3;
+        grid-row-start: 1;
+        justify-self: start;
+        margin-left: 25px;
+    }
 }

@@ -1,27 +1,23 @@
-import { format } from 'date-fns'
-
 export default class MovieAPIService {
   _baseApe = 'https://api.themoviedb.org/3/'
-  _apiSearch = 'search/movie?query='
-  _apiKey = '&api_key=dbfd873c3804a95d2b0627bf149217fc'
+  _apiKey = new URLSearchParams({ api_key: 'dbfd873c3804a95d2b0627bf149217fc' })
+  _apiGetRate = new URLSearchParams({ language: 'en-US', page: '1', sort_by: 'created_at.asc' })
   _apiSession = 'authentication/guest_session/new'
   _apiGenre = 'genre/movie/list?language=en'
-  _rateApi = '/rating?guest_session_id='
-  _apiGetRate = '/rated/movies?language=en-US&page=1&sort_by=created_at.asc'
 
-  async getResource(url) {
-    const res = await fetch(`https://api.themoviedb.org/3/${this._apiSearch}${url}${this._apiKey}`)
+  async getResource(data) {
+    const res = await fetch(`${this._baseApe}search/movie?${data}&${this._apiKey}`)
 
     if (!res.ok) {
-      throw new Error(`Could not fetch ${url}, 
-                      received ${res.status}`)
+      throw new Error(`Could not fetch, received ${res.status}`)
     }
 
     return await res.json()
   }
 
   async createGuestSession() {
-    const res = await fetch(`${this._baseApe}${this._apiSession}`, {
+    const p = new URL(this._apiSession, this._baseApe)
+    const res = await fetch(p, {
       method: 'GET',
       headers: {
         accept: 'application/json',
@@ -31,8 +27,7 @@ export default class MovieAPIService {
     })
 
     if (!res.ok) {
-      throw new Error(`Could not fetch, 
-                      received ${res.status}`)
+      throw new Error('Failed to create guest session')
     }
 
     return await res.json()
@@ -40,7 +35,7 @@ export default class MovieAPIService {
 
   async addRating(rating, id) {
     const res = await fetch(
-      `${this._baseApe}movie/${id}/rating?guest_session_id=${localStorage.key(0)}${this._apiKey}`,
+      `${this._baseApe}movie/${id}/rating?guest_session_id=${sessionStorage.key(0)}&${this._apiKey}`,
       {
         method: 'POST',
         headers: {
@@ -54,22 +49,23 @@ export default class MovieAPIService {
     )
 
     if (!res.ok) {
-      throw new Error(`Could not fetch, 
-                      received ${res.status}`)
+      throw new Error('Could not rate the movie')
     }
   }
 
   async getRateMovies() {
-    const res = await fetch(`${this._baseApe}guest_session/${localStorage.key(0)}${this._apiGetRate}${this._apiKey}`, {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-      },
-    })
+    const res = await fetch(
+      `${this._baseApe}guest_session/${sessionStorage.key(0)}/rated/movies?${this._apiGetRate}&${this._apiKey}`,
+      {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+        },
+      }
+    )
 
     if (!res.ok) {
-      throw new Error(`Could not fetch, 
-                      received ${res.status}`)
+      throw new Error('Failed to get rated movies')
     }
 
     return await res.json()
@@ -86,16 +82,16 @@ export default class MovieAPIService {
     })
 
     if (!res.ok) {
-      throw new Error(`Could not fetch, 
-                      received ${res.status}`)
+      throw new Error('Failed to get genres')
     }
 
     return await res.json()
   }
 
   async getMovie(request, page) {
-    const res = await this.getResource(`${request}&page=${page}`)
-    return res.results.map(this._transformMovie)
+    const params = new URLSearchParams({ query: request, page: page })
+    const res = await this.getResource(params)
+    return [res.results, res.total_pages]
   }
 
   async getGuestSession() {
@@ -105,29 +101,11 @@ export default class MovieAPIService {
 
   async toGenre() {
     const res = await this.getGenre()
-    return res.genres.map(this._transformGenre)
+    return res.genres
   }
 
   async rateMov() {
     const res = await this.getRateMovies()
-    return res.results.map(this._transformMovie)
-  }
-
-  _transformGenre = (genres) => {
-    return { id: genres.id, name: genres.name }
-  }
-
-  _transformMovie = (movie) => {
-    const toFormatDate = movie.release_date.split('-').join(', ').trim()
-    const trimOverview = movie.overview.length > 225 ? `${movie.overview.slice(0, 225)}...` : movie.overview
-    return {
-      id: movie.id,
-      title: movie.title,
-      overview: trimOverview,
-      releaseDate: format(new Date(toFormatDate), 'MMMM d, yyyy'),
-      posterPath: movie.poster_path,
-      voteAverage: movie.vote_average,
-      genreIds: movie.genre_ids,
-    }
+    return [res.results, res.total_pages]
   }
 }

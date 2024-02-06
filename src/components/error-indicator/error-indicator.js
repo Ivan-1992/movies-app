@@ -3,10 +3,11 @@ import { Alert } from 'antd'
 
 import './error-indicator.css'
 
-const ErrorIndicator = () => {
+const ErrorIndicator = (err) => {
+  const text = `Произошла ошибка: ${err.err}`
   return (
     <div className="error-indicator">
-      <Alert message="Произошла ошибка" type="error" />
+      <Alert message={text} type="error" />
     </div>
   )
 }
