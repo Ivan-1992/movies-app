@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Rate, Typography } from 'antd'
 import { format } from 'date-fns'
+import PropTypes from 'prop-types'
 
 import './film-card.css'
 
@@ -11,6 +12,14 @@ import photo from './noPhoto.png'
 const { Text } = Typography
 
 export default class FilmCard extends Component {
+  static defaultProps = {
+    movie: {},
+  }
+
+  static propTypes = {
+    movie: PropTypes.object,
+  }
+
   state = {
     rating: null,
   }

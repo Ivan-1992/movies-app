@@ -12,14 +12,18 @@ export default class FilmList extends Component {
     movieName: '',
     selectedPage: 1,
     genres: {},
+    tab: 1,
+    ratedFilms: [],
+    ratedCountPages: 1,
   }
 
   static propTypes = {
     movieName: PropTypes.string,
     selectedPage: PropTypes.number,
     genres: PropTypes.array,
-    rating: PropTypes.number,
-    rated: PropTypes.array,
+    ratedFilms: PropTypes.array,
+    onPageSelected: PropTypes.func,
+    ratedCountPages: PropTypes.number,
   }
 
   state = {
@@ -84,18 +88,16 @@ export default class FilmList extends Component {
     const paginationRated =
       tab == 1 && ratedFilms.length > 0 ? (
         <div className="pagination">
-          <div className="pagination">
-            <Pagination
-              defaultCurrent={1}
-              total={ratedCountPages * 10}
-              size="small"
-              onChange={this.props.onPageSelected}
-            />
-          </div>
+          <Pagination
+            defaultCurrent={1}
+            total={ratedCountPages * 10}
+            size="small"
+            onChange={this.props.onPageSelected}
+          />
         </div>
       ) : null
 
-    if (tab == 1 && movies.length > 0) {
+    if (tab == 1) {
       return (
         <>
           <div className="movie">
