@@ -95,7 +95,7 @@ export default class MovieAPIService {
   }
 
   async getGuestSession() {
-    const res = await this.createGuestSession('')
+    const res = await this.createGuestSession()
     return res
   }
 
