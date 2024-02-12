@@ -27,7 +27,6 @@ export default class App extends Component {
 
   componentDidMount() {
     this.createGuestSession()
-    this.getGenre()
     this.updateGenre()
   }
 
@@ -44,10 +43,6 @@ export default class App extends Component {
     if (err) this.setState({ error: true, errorMessage: err.message })
   }
 
-  getGenre() {
-    this.movieAPIService.getGenre().catch(this.onError)
-  }
-
   onPageSelected = (id) => {
     this.setState({
       selectedPage: id,
@@ -58,22 +53,22 @@ export default class App extends Component {
     this.setState({ movieName: event.target.value })
   }
 
-  changeTab = (key) => {
+  changeTab = (key, error) => {
     this.setState({ tab: key })
     this.movieAPIService
       .rateMov()
       .then((res) => {
         this.setState({ ratedFilms: res[0], ratedCountPages: res[1] })
       })
-      .catch(this.onError)
+      .catch(this.onError(error))
   }
 
   onGenreLoaded = (genres) => {
     this.setState({ genres })
   }
 
-  updateGenre() {
-    this.movieAPIService.toGenre().then(this.onGenreLoaded)
+  updateGenre(error) {
+    this.movieAPIService.toGenre().then(this.onGenreLoaded).catch(this.onError(error))
   }
 
   render() {
